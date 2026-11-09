@@ -1,19 +1,72 @@
-# React + Vite
+# GuitarLA
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Tienda en línea de guitarras con carrito de compra, desarrollada con React, JavaScript y Vite.
 
-Currently, two official plugins are available:
+**Demo:** https://guitarla-js-erickgreco.netlify.app/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Funcionalidades
 
-## React Compiler
+- Catálogo de guitarras con imagen, descripción y precio.
+- Agregar productos al carrito.
+- Aumentar y disminuir la cantidad de cada producto.
+- Eliminar productos o vaciar el carrito.
+- Cálculo automático del total.
+- Persistencia del carrito en `localStorage`.
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
+## Stack
 
-Note: This will impact Vite dev & build performances.
-You can also try [the experimental native React Compiler support in plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md#rust-react-compiler) by using `compiler: true` in the plugin options instead of using the Babel plugin.
+| Área                 | Tecnología        |
+| -------------------- | ----------------- |
+| UI                   | React             |
+| Lenguaje             | JavaScript (ES6+) |
+| Bundler / Dev server | Vite              |
+| Estilos              | CSS (`index.css`) |
+| Despliegue           | Netlify           |
+| Control de versiones | Git + GitHub      |
 
-## Expanding the ESLint configuration
+## Arquitectura
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+La lógica del carrito está separada de la interfaz: los componentes solo renderizan y la lógica de estado vive en un hook personalizado.
+
+| Archivo                     | Responsabilidad                                                                     |
+| --------------------------- | ----------------------------------------------------------------------------------- |
+| `src/main.jsx`              | Punto de entrada; monta la aplicación en el DOM                                     |
+| `src/App.jsx`               | Componente raíz; consume `useCart` y distribuye datos y funciones a los componentes |
+| `src/components/Header.jsx` | Encabezado y vista del carrito                                                      |
+| `src/components/Guitar.jsx` | Tarjeta de producto del catálogo                                                    |
+| `src/hooks/useCart.js`      | Hook personalizado con el estado y las operaciones del carrito                      |
+| `src/data/db.js`            | Catálogo de guitarras (datos locales)                                               |
+| `src/index.css`             | Estilos globales                                                                    |
+
+## Ejecutar en local
+
+Requisitos: Node.js (versión LTS) y npm.
+
+```bash
+git clone git@github.com:erickgreco/GuitarLA-JS.git
+cd GuitarLA-JS
+npm install
+npm run dev
+```
+
+Scripts disponibles:
+
+| Comando           | Descripción                                    |
+| ----------------- | ---------------------------------------------- |
+| `npm run dev`     | Servidor de desarrollo con recarga en caliente |
+| `npm run build`   | Genera el build de producción en `dist/`       |
+| `npm run preview` | Sirve localmente el build de producción        |
+
+## Despliegue
+
+El sitio se despliega en Netlify, conectado a este repositorio: cada `push` a `main` dispara un deploy automático.
+
+| Configuración     | Valor           |
+| ----------------- | --------------- |
+| Build command     | `npm run build` |
+| Publish directory | `dist`          |
+
+## Autor
+
+**Erick Gutierrez Sanchez**
+GitHub: [@erickgreco](https://github.com/erickgreco)
